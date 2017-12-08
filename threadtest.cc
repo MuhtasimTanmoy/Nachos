@@ -15,7 +15,7 @@
 #include "producer.h"
 #include "consumer.h"
 
-#define NUMBER 20
+#define MAX_NUMBER 20
 
 
 //----------------------------------------------------------------------
@@ -47,7 +47,6 @@ SimpleThread(int which)
 void
 ThreadTest()
 {
-    DEBUG('t', "Entering SimpleTest");
 
     // Thread *t = new Thread("forked thread");
 //
@@ -57,25 +56,24 @@ ThreadTest()
  // printf("%s\n",myAbul.getAbul());
 
 
-
- producer *p = new producer;
  consumer *c = new consumer;
 
- for(int k = 1; k<=NUMBER; k++)
+ producer *p = new producer;
+
+ for(int k = 1; k<=MAX_NUMBER; k++)
  {
-producerInfo *pi = new producerInfo;
-     sprintf(pi->name, "Producer %d", k);
-pi->no = k;
-Thread* newThread = new Thread (pi->name);
-     newThread->Fork (p->ProducerFunction, (void*)pi);
+  producerInfo *pi = new producerInfo;
+  sprintf(pi->name, "Producer %c", (k%MAX_NUMBER)+64);
+  pi->no = k%MAX_NUMBER;
+  Thread* newThread = new Thread (pi->name);
+       newThread->Fork (p->ProducerFunction, (void*)pi);
  }
- for(int k = 1; k<=NUMBER; k++)
+ for(int k = 1; k<=MAX_NUMBER; k++)
  {
-char* threadname = new char[100];
-     sprintf(threadname, "Consumer %d", k);
-Thread* newThread = new Thread (threadname);
-     newThread->Fork (c->Consumer
-       Function, (void*)threadname);
+  char* threadname = new char[100];
+       sprintf(threadname, "Consumer %d", k);
+  Thread* newThread = new Thread (threadname);
+       newThread->Fork (c->ConsumerFunction, (void*)threadname);
  }
 
     //t->Fork(SimpleThread, 1);
