@@ -5,9 +5,9 @@
 
 extern const int SIZE;
 extern int buffer[];
-extern int length;
 extern int front;
 extern int rear;
+extern int curr;
 extern Lock *lock;
 extern Condition *full;
 extern Condition *empty;
@@ -15,15 +15,15 @@ extern Condition *empty;
 class producerInfo {
 
   public:
-    char * name = new char[100];
-    int no;
+    char * name = new char[50];
+    int producedNum;
 
 };
 
 class producer {
 
   public:
-    static void ProducerFunction(void *info);
+    static void ProducerProduce(void *info);
 };
 
 #endif // PRODUCER_H

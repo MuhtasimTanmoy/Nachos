@@ -411,8 +411,7 @@ producer.o: ../threads/producer.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
  ../threads/list.h ../threads/system.h ../threads/scheduler.h \
  ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
- ../machine/timer.h ../threads/utility.h \
- /usr/include/x86_64-linux-gnu/bits/timex.h
+ ../machine/timer.h ../threads/utility.h
 consumer.o: ../threads/consumer.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../threads/consumer.h ../threads/synch.h \
  ../threads/thread.h ../threads/utility.h ../machine/sysdep.h \
@@ -443,8 +442,7 @@ consumer.o: ../threads/consumer.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
  ../threads/list.h ../threads/system.h ../threads/scheduler.h \
  ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
- ../machine/timer.h ../threads/utility.h \
- /usr/include/x86_64-linux-gnu/bits/timex.h
+ ../machine/timer.h ../threads/utility.h
 Abul.o: ../threads/Abul.cc /usr/include/stdc-predef.h ../threads/Abul.h
 preemptive.o: ../threads/preemptive.cc /usr/include/stdc-predef.h \
  ../threads/preemptive.h ../threads/system.h ../threads/copyright.h \

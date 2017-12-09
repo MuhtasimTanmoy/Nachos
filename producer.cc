@@ -1,37 +1,42 @@
 #include "copyright.h"
 #include "producer.h"
 #include "system.h"
-#include "time.h"
 
 const int SIZE = 9;
 int buffer[SIZE];
-int length = 0;
 int front = 0;
 int rear = 0;
+int curr = 0;
 Lock *lock = new Lock("lock");
 Condition *full = new Condition("full");
 Condition *empty = new Condition("empty");
 
 void
-producer::ProducerFunction(void *info)
+producer::ProducerProduce(void *info)
 {
-    producerInfo* pi = (producerInfo*)info;
+  int changer=0;
+
+  while(1){
+    changer+=1;
+    producerInfo* pInfo = (producerInfo*)info;
     lock->Acquire();
-    for(int p=0;p<10000000;p++){
+    for(int p=0;p<rand()%4530+100000000;p++){
 
     }
-    while(length == SIZE) {
+    while(curr == SIZE) {
 	full->Wait(lock);
     }
 
-    buffer[front] = pi->no;
-    printf("Producer thread: %s has produced : %d\n",pi->name,pi->no);
-    length++;
+    buffer[front] = pInfo->producedNum+changer+rand()%7;
+    printf("[Producer thread]: %s has produced : %d\n",pInfo->name,buffer[front]);
+    curr++;
     front = (front + 1) % SIZE;
-    printf("current: %d | remaining: %d\n", length, SIZE - length );
-    if(length == 0) {
+    printf("current: %d || remaining: %d\n\n", curr, SIZE - curr );
+    if(curr == 0) {
 	empty->Signal(lock);
-	printf("%s is notifying all waiting consumers\n",pi->name);
+	printf("%s is notifying all waiting consumers\n",pInfo->name);
     }
     lock->Release();
   }
+
+}

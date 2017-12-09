@@ -5,17 +5,16 @@
 
 extern const int SIZE;
 extern int buffer[];
-extern int length;
 extern int front;
 extern int rear;
 extern Lock *lock;
+extern int curr;
 extern Condition *full;
 extern Condition *empty;
 
 class consumer {
-
   public:
-    static void ConsumerFunction(void *name);
+    static void ConsumerConsume(void *name);
 };
 
 #endif // CONSUMER_H

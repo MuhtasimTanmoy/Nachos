@@ -3,24 +3,26 @@
 #include "system.h"
 
 void
-consumer::ConsumerFunction(void *name)
+consumer::ConsumerConsume(void *name)
 {
+  while(1){
     char* threadName = (char*)name;
     lock->Acquire();
-    for(int p=0;p<10000000;p++){
+    for(int p=0;p<rand()%40000+100000000;p++){
 
     }
-    while(length == 0){
+    while(curr == 0){
 	empty->Wait(lock);
     }
-    int m = buffer[rear];
-    printf("Consumer thread: %s has consumed : %d\n",threadName,m);
-    length--;
-    printf("current: %d | remaining: %d\n", length, SIZE - length );
+    int popped = buffer[rear];
+    printf("[Consumer thread]: %s has consumed : %d\n",threadName,popped);
+    curr--;
+    printf("current: %d || remaining: %d\n\n", curr, SIZE - curr );
     rear = (rear + 1) % SIZE;
-    if(length == SIZE-1) {
-	full->Broadcast(lock);
+    if(curr == SIZE-1) {
+	full->Signal(lock);
 	printf("%s is notifying all waiting producers\n",threadName);
     }
     lock->Release();
+}
 }

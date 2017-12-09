@@ -15,7 +15,7 @@
 #include "producer.h"
 #include "consumer.h"
 
-#define MAX_NUMBER 20
+#define MAX_NUMBER 4
 
 
 //----------------------------------------------------------------------
@@ -40,7 +40,7 @@ SimpleThread(int which)
 
 //----------------------------------------------------------------------
 // ThreadTest
-// 	Set up a ping-pong between two threads, by forking a thread
+// 	Set up a pInfong-pong between two threads, by forking a thread
 //	to call SimpleThread, and then calling SimpleThread ourselves.
 //----------------------------------------------------------------------
 
@@ -56,24 +56,24 @@ ThreadTest()
  // printf("%s\n",myAbul.getAbul());
 
 
- consumer *c = new consumer;
+ consumer *cons = new consumer;
 
- producer *p = new producer;
+ producer *prod = new producer;
 
- for(int k = 1; k<=MAX_NUMBER; k++)
+ for(int i = 0; i<MAX_NUMBER; i++)
  {
-  producerInfo *pi = new producerInfo;
-  sprintf(pi->name, "Producer %c", (k%MAX_NUMBER)+64);
-  pi->no = k%MAX_NUMBER;
-  Thread* newThread = new Thread (pi->name);
-       newThread->Fork (p->ProducerFunction, (void*)pi);
+  producerInfo *pInfo = new producerInfo;
+  sprintf(pInfo->name, "Producer %c", (i%MAX_NUMBER)+65);
+  pInfo->producedNum = i%MAX_NUMBER;
+  Thread* thread = new Thread (pInfo->name);
+  thread->Fork (prod->ProducerProduce, (void*)pInfo);
  }
- for(int k = 1; k<=MAX_NUMBER; k++)
+ for(int j = 1; j<=MAX_NUMBER; j++)
  {
   char* threadname = new char[100];
-       sprintf(threadname, "Consumer %d", k);
-  Thread* newThread = new Thread (threadname);
-       newThread->Fork (c->ConsumerFunction, (void*)threadname);
+  sprintf(threadname, "Consumer %d", j);
+  Thread* thread= new Thread (threadname);
+  thread->Fork (cons->ConsumerConsume, (void*)threadname);
  }
 
     //t->Fork(SimpleThread, 1);
